@@ -5,76 +5,68 @@ $breakpoint-lg: 1200px;
 $white: #ffffff;
 $red: #ff0000;
 $black: #000000;
-$black-10: #2C2C2C;
-$black-20: #6E6E6E;
-$black-30: #4B4B4B;
-$gray-10: #F5F5F5;
+$black-10: #2c2c2c;
+$black-20: #6e6e6e;
+$black-30: #4b4b4b;
+$gray-10: #f5f5f5;
 
-$primary-blue: #1473E6;
+$primary-blue: #1473e6;
 
 $spacing: 2rem;
 
 $spacing-md: 3rem;
 
-
-
-
 @mixin flex-box($direction: row, $justify: center, $align: center) {
-    display: flex;
-    flex-direction: $direction;
-    justify-content: $justify;
-    align-items: $align;
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
 }
 
-@mixin separator(){
-    width: 0.2rem;
-    height: 0.2rem;
-    background: $black-20;
-    border-radius: 50%;
+@mixin separator() {
+  width: 0.2rem;
+  height: 0.2rem;
+  background: $black-20;
+  border-radius: 50%;
 }
 
 @mixin flex-wrap($wrap: wrap) {
-    flex-wrap: $wrap;
+  flex-wrap: $wrap;
 }
 
 @mixin flex-gap($gap: 1rem) {
-    gap: $gap;
+  gap: $gap;
 }
 
 @mixin text-small($color: $black-20) {
-    font-weight: 500;
-    font-size: 1.2rem;
-    color: $color;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: $color;
 }
-
 
 @mixin text-small-bold($color: $black-20) {
-    @include text-small($color);
-    font-weight: 700;
+  @include text-small($color);
+  font-weight: 700;
 }
-
 
 @mixin text-regular($color: $black-20) {
-    font-weight: 400;
-    font-size: 1.4rem;
-    color: $color
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: $color;
 }
 
-
-@mixin text-lg($color: $black-20){
-    font-weight: 500;
-    font-size: 3.2rem;
-    color: $color;
+@mixin text-lg($color: $black-20) {
+  font-weight: 500;
+  font-size: 3.2rem;
+  color: $color;
 }
 
-
-
-@mixin text-lg-bold($color: $black-20){
-    @include text-lg($color);
-    font-weight: 700;
+@mixin text-lg-bold($color: $black-20) {
+  @include text-lg($color);
+  font-weight: 700;
 }
 
-@mixin text-lg-bolder($color: $black-20){
-    @include text-lg($color);
-    font-weight: 900;
+@mixin text-lg-bolder($color: $black-20) {
+  @include text-lg($color);
+  font-weight: 900;
 }

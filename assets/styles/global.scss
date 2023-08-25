@@ -1,71 +1,71 @@
-@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+@import url("https://fonts.cdnfonts.com/css/sf-pro-display");
 
-html{
-    font-size: 62.5%;
+html {
+  font-size: 62.5%;
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'SF Pro Display', sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "SF Pro Display", sans-serif;
 }
 
-h3{
-    font-size: 3.2rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+h3 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
-h4{
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-bottom: 0.7rem;
+h4 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
 }
 
-h5{
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 0.4rem;
+h5 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
 }
-a{
-    text-decoration: none;
-    color: $black-10;
+a {
+  text-decoration: none;
+  color: $black-10;
 }
 
 p {
-    font-weight: 400;
-    font-size: 1.2rem;
+  font-weight: 400;
+  font-size: 1.2rem;
 }
 
-body{
-    background-color: $white;
+body {
+  background-color: $white;
 }
 
 /* Mobile Screens*/
 .container {
-    width: 100%;
-    margin: 0 auto;
-    padding: 1rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
 }
-  
+
 /* Tablet Screens */
 @media screen and (min-width: $breakpoint-sm) {
-    .container {
-        max-width: 720px;
-    }
+  .container {
+    max-width: 720px;
+  }
 }
 
 /* Desktop Screens */
 @media screen and (min-width: $breakpoint-md) {
-    .container {
-        max-width: 980px;
-    }
+  .container {
+    max-width: 980px;
+  }
 }
 
 /* Large Desktop Screens */
 @media screen and (min-width: $breakpoint-lg) {
-    .container {
-        max-width: 1120px;
-    }
+  .container {
+    max-width: 1120px;
+  }
 }
