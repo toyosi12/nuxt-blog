@@ -23,7 +23,7 @@ export const articleStore = createStore<ArticleStore>({
   }),
   mutations: {
     setArticles(state, articles) {
-      state.articles = [...state.articles, ...articles];
+      state.articles = articles;
     },
     setArticle(state, article) {
       state.article = article;
@@ -33,21 +33,28 @@ export const articleStore = createStore<ArticleStore>({
     },
   },
   actions: {
-    async fetchArticles({ commit }) {
+    async fetchArticles({ commit, state }, page) {
       try {
-        const { data } = await useFetch<Article[]>(
+        const response = await useFetch<Article[]>(
           "https://techcrunch.com/wp-json/wp/v2/posts",
           {
             params: {
               per_page: perPage,
               order_by: "date",
               order: "desc",
-              page: this.state.currentPage,
+              page,
             },
           },
         );
+
+        const data = response.data;
         if (data.value) {
-          commit(SET_ARTICLES, data.value);
+          if (page === 1) {
+            commit(SET_ARTICLES, data.value);
+          } else {
+            commit(SET_ARTICLES, [...state.articles, ...data.value]);
+          }
+          commit(SET_CURRENT_PAGE, page);
         }
       } catch (error) {
         // TODO: log errors
@@ -71,7 +78,7 @@ export const articleStore = createStore<ArticleStore>({
       }
     },
     async goToNextPage({ commit }) {
-      commit(SET_CURRENT_PAGE, this.state.currentPage++);
+      commit(SET_CURRENT_PAGE, this.state.currentPage + 1);
       await this.dispatch(FETCH_ARTICLES);
     },
   },

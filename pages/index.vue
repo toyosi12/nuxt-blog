@@ -12,19 +12,20 @@
 
 <script lang="ts" setup>
 import { useStore } from "vuex";
+import { FETCH_ARTICLES } from "~/store/constants";
 import { Article } from "~/interfaces/api";
-import { FETCH_ARTICLES, GO_TO_NEXT_PAGE } from "~/store/constants";
 const store = useStore();
 const articles = ref<Article[]>([]);
 const isMoreLoading = ref<boolean>(false);
 
-await store.dispatch(FETCH_ARTICLES);
-articles.value = store.getters.getArticles;
+await store.dispatch(FETCH_ARTICLES, 1);
+articles.value = store.state.articles;
 
 const loadMoreArticles = async () => {
+  const currentPage = store.state.currentPage;
   isMoreLoading.value = true;
-  await store.dispatch(GO_TO_NEXT_PAGE);
-  articles.value = store.getters.getArticles;
+  await store.dispatch(FETCH_ARTICLES, currentPage + 1);
+  articles.value = store.state.articles;
   isMoreLoading.value = false;
 };
 </script>

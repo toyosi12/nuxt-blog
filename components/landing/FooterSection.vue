@@ -9,12 +9,38 @@
       >
       and everything is ready to go.
     </p>
-    <action-button btn-type="btn-dark">JOIN US</action-button>
+    <action-button btn-type="btn-dark" :on-click="handleJoin"
+      >JOIN US</action-button
+    >
   </footer>
 </template>
 
 <script lang="ts" setup>
+const { $flutterwave } = useNuxtApp();
+
 const membershipCostInDollars = 25;
+
+const handleJoin = async () => {
+  try {
+    const paymentOptions: any = {
+      public_key: "FLWPUBK_TEST-ac1328a5926811d408cec83ba36b5202-X",
+      tx_ref: "fasdfasdf",
+      amount: 10,
+      currency: "USD",
+      payment_type: "card",
+      customer: {
+        email: "user@example.com",
+        phone_number: "user_phone_number",
+        name: "John Doe",
+      },
+    };
+
+    const paymentResponse = await $flutterwave(paymentOptions);
+    console.log("Payment successful:", paymentResponse);
+  } catch (error) {
+    console.error("Payment error:", error);
+  }
+};
 </script>
 
 <style lang="scss" scoped>
