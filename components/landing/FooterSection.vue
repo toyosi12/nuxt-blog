@@ -4,12 +4,18 @@
     <p class="footer__sub-text">
       On dasdas, writers earn a living doing what they love. Getting started is
       easy. Just pay a one time
-      <span class="footer__sub-text--bold">$25 fee</span> and everything is
-      ready to go.
+      <span class="footer__sub-text--bold"
+        >${{ membershipCostInDollars }} fee</span
+      >
+      and everything is ready to go.
     </p>
-    <action-button btn-text="JOIN US" btn-type="btn-dark" />
+    <action-button btn-type="btn-dark">JOIN US</action-button>
   </footer>
 </template>
+
+<script lang="ts" setup>
+const membershipCostInDollars = 25;
+</script>
 
 <style lang="scss" scoped>
 .footer {

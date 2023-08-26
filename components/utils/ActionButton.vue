@@ -1,20 +1,27 @@
 <template>
-  <button :class="['btn', btnType]">{{ btnText }}</button>
+  <button :class="['btn', btnType]" @click="handleClick"><slot></slot></button>
 </template>
 
 <script lang="ts" setup>
 import { defineProps } from "vue";
 import { ButtonProp } from "../../interfaces/components";
-const { btnText, btnType } = defineProps<ButtonProp>();
+const { btnType, onClick } = defineProps<ButtonProp>();
+
+const handleClick = () => {
+  if (onClick) {
+    onClick();
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 .btn {
   padding: 1.2rem 5.5rem;
   cursor: pointer;
+  border: none;
   transition: box-shadow 0.3s;
   &:hover {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   }
 }
 

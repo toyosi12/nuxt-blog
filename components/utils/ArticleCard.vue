@@ -4,6 +4,7 @@
       <div class="card__image-container">
         <nuxt-img
           class="card__image"
+          loading="lazy"
           :src="article.yoast_head_json.og_image[0].url"
           alt="TODO"
         />
@@ -11,21 +12,24 @@
       <div class="card__content">
         <div class="card__content-top">
           <div class="card__content-category">
-            {{ article.primary_category.name }}
+            <p>{{ article.primary_category.name }}</p>
           </div>
           <div class="card__content-separator"></div>
-          <div class="card__content-date">{{ article.date }}</div>
+          <div class="card__content-date">
+            <p>{{ convertToRelativeDate(article.date) }}</p>
+          </div>
         </div>
         <div class="card__content-middle">
           <h4 v-if="isHero === true">{{ article.title.rendered }}</h4>
           <h5 v-else>{{ article.title.rendered }}</h5>
-          <p>
-            {{ article.excerpt.rendered }}
-          </p>
+          <p v-dompurify-html="article.excerpt.rendered"></p>
         </div>
         <div class="card__content-bottom">
           <div class="card__content-reading-time">
-            <p>12 Min Read</p>
+            <p>
+              {{ calculateReadingTimeInMins(article.content.rendered) }} Min
+              Read
+            </p>
           </div>
           <div class="card__content-full">
             <p>Read Full</p>
@@ -38,7 +42,11 @@
 
 <script lang="ts" setup>
 import { defineProps } from "vue";
-import { CardProp } from "../../interfaces/components";
+import { CardProp } from "~/interfaces/components";
+import {
+  convertToRelativeDate,
+  calculateReadingTimeInMins,
+} from "~/utils/index";
 const { isHero, article } = defineProps<CardProp>();
 </script>
 
@@ -47,6 +55,7 @@ const { isHero, article } = defineProps<CardProp>();
   @include flex-box(column);
   @include flex-box(column, flex-start, flex-start);
   @include flex-gap(1.2rem);
+  overflow: hidden;
   padding: 1rem;
   border-radius: 0.5rem;
   border: solid 0.1rem $gray-10;
@@ -68,26 +77,39 @@ const { isHero, article } = defineProps<CardProp>();
     @include flex-box(column, flex-start, flex-start);
     @include flex-gap(1.2rem);
   }
-  &__content-top,
-  &__content-date {
-    font-size: 1.2rem;
-    font-weight: 500;
-  }
   &__content-top {
     @include flex-box(row, flex-start);
     @include flex-gap(0.5rem);
+    height: 2rem;
+    p {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+  }
+  &__content-middle {
+    height: 10.6rem;
+    overflow: hidden;
+    h4,
+    h5 {
+      @include text-clamp(2);
+    }
+    p {
+      @include text-regular($black-20);
+      @include text-clamp(3);
+    }
+  }
+  &__content-bottom {
+    height: 2rem;
+
+    @include flex-box(row, space-between);
+    width: 100%;
+    align-self: baseline;
   }
   &__content-category {
     color: $black-30;
   }
   &__content-date {
     color: $black-20;
-  }
-  &__content-middle {
-    p {
-      @include text-regular();
-      color: $black-20;
-    }
   }
   &__content-reading-time {
     p {
@@ -96,11 +118,6 @@ const { isHero, article } = defineProps<CardProp>();
   }
   &__content-separator {
     @include separator();
-  }
-  &__content-bottom {
-    @include flex-box(row, space-between);
-    width: 100%;
-    align-self: baseline;
   }
   &__content-full {
     text-align: right;

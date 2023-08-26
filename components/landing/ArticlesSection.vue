@@ -18,11 +18,16 @@ const { articles } = defineProps<{ articles: Article[] }>();
   @include flex-box(column, flex-start);
   @include flex-wrap(wrap);
   @include flex-gap($spacing-md);
+  flex-wrap: wrap;
 }
 
 @media screen and (min-width: $breakpoint-sm) {
   .articles {
-    @include flex-box(row, flex-start);
+    @include flex-box(row, space-between);
+    &::after {
+      content: "";
+      flex-basis: calc(33.33% - $spacing-md);
+    }
   }
 }
 </style>
