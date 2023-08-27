@@ -1,6 +1,10 @@
 <template>
-  <process-loader v-if="isMoreLoading" />
-  <action-button v-else btn-type="dark" :on-click="onClick"
+  <process-loader v-if="isMoreLoading" data-testid="process-loader" />
+  <action-button
+    v-else
+    btn-type="dark"
+    :on-click="onClick"
+    data-testid="load-more-btn"
     >Load More</action-button
   >
 </template>

@@ -3,7 +3,7 @@
     <nav class="hdr__nav">
       <div class="hdr__logo-container">
         <NuxtLink to="/">
-          <icon-logo />
+          <icon-logo id="logo" />
         </NuxtLink>
       </div>
       <div class="hdr__social-container">
