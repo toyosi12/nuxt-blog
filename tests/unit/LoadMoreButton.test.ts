@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import LoadMoreBtn from "../../components/molecules/LoadMoreBtn.vue";
+import LoadMoreBtn from "../components/molecules/LoadMoreBtn.vue";
 
 describe("LoadMoreBtn", () => {
   it("renders process-loader when isMoreLoading is true", () => {
