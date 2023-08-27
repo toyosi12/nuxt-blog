@@ -9,7 +9,7 @@ export default defineNuxtPlugin(() => {
       flutterwave: (options: any) => {
         return new Promise((resolve, reject) => {
           // @ts-ignore
-          FlutterwaveCheckout({
+          const flw = FlutterwaveCheckout({
             ...options,
             callback: (response: any) => {
               if (response.status === "successful") {
@@ -17,6 +17,7 @@ export default defineNuxtPlugin(() => {
               } else {
                 reject(response);
               }
+              flw.close();
             },
             onClose: () => {
               reject(new Error("Payment closed"));

@@ -11,3 +11,5 @@ export const GO_TO_NEXT_PAGE = "goToNextPage";
 export const SET_CURRENT_PAGE = "setCurrentPage";
 
 export const SET_MEMBER_DIALOG = "setMemberDialog";
+
+export const SET_IS_MEMBER = "setIsMember";

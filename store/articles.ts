@@ -5,27 +5,22 @@ import {
   SET_ARTICLE,
   SET_ARTICLES,
   SET_CURRENT_PAGE,
-  SET_IS_MEMBER,
-  SET_MEMBER_DIALOG,
 } from "~/store/constants";
 
-interface CrunchStore {
+interface AppStore {
   articles: Article[];
   article: Article;
   currentPage: number;
-  memberDialogOpen: boolean;
-  isMember: boolean;
 }
 
 const perPage = 10;
 
-export const crunchStore = createStore<CrunchStore>({
+export const appStore = createStore<AppStore>({
   state: () => ({
     articles: [],
     article: {} as Article,
     currentPage: 1,
     memberDialogOpen: false,
-    isMember: false,
   }),
   mutations: {
     setArticles(state, articles) {
@@ -36,12 +31,6 @@ export const crunchStore = createStore<CrunchStore>({
     },
     setCurrentPage(state, currentPage) {
       state.currentPage = currentPage;
-    },
-    setMemberDialog(state, isOpen) {
-      state.memberDialogOpen = isOpen;
-    },
-    setIsMember(state, isMember) {
-      state.isMember = isMember;
     },
   },
   actions: {
@@ -93,17 +82,9 @@ export const crunchStore = createStore<CrunchStore>({
       commit(SET_CURRENT_PAGE, this.state.currentPage + 1);
       await this.dispatch(FETCH_ARTICLES);
     },
-    setMemberDialog({ commit }, isOpen: boolean) {
-      commit(SET_MEMBER_DIALOG, isOpen);
-    },
-    setIsMember({ commit }, isMember) {
-      commit(SET_IS_MEMBER, isMember);
-    },
   },
   getters: {
     getArticles: (state) => state.articles,
     getArticle: (state) => state.article,
-    getMemberDialog: (state) => state.memberDialogOpen,
-    getIsMember: (state) => state.isMember,
   },
 });

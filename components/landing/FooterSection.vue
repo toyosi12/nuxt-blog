@@ -5,13 +5,14 @@
       On dasdas, writers earn a living doing what they love. Getting started is
       easy. Just pay a one time
       <span class="footer__sub-text--bold"
-        >${{ membershipCostInDollars }} fee</span
+        >${{ MEMBER_COST_IN_DOLLARS }} fee</span
       >
       and everything is ready to go.
     </p>
-    <action-button btn-type="btn-dark" :on-click="handleJoin"
+    <action-button v-if="!isMember" btn-type="btn-dark" :on-click="handleJoin"
       >JOIN US</action-button
     >
+    <p v-else>Member</p>
   </footer>
   <membership-dialog :on-close="onDialogClose" />
 </template>
@@ -19,10 +20,11 @@
 <script lang="ts" setup>
 import { useStore } from "vuex";
 import { SET_MEMBER_DIALOG } from "~/store/constants";
-
-const membershipCostInDollars = 25;
+import { MEMBER_COST_IN_DOLLARS } from "~/constants";
 
 const store = useStore();
+
+const isMember = computed(() => store.state.isMember);
 
 const onDialogClose = () => {
   store.dispatch(SET_MEMBER_DIALOG, false);

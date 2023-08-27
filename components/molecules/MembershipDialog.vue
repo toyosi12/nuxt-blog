@@ -2,7 +2,7 @@
   <div class="home">
     <dialog-box :is-dialog-open="isDialogOpen" :on-close="onClose">
       <div class="modal-content">
-        <h1>Pay {{ "$25" }} to become a member</h1>
+        <h1>Pay ${{ MEMBER_COST_IN_DOLLARS }} to become a member</h1>
         <form @submit="payAndAddMember">
           <input-box
             id="fullName"
@@ -32,7 +32,8 @@ import { useStore } from "vuex";
 import { PaymentType } from "~/enums/payment-types";
 import { Currency } from "~/enums/currencies";
 import { FlwPaymentOptions } from "~/interfaces/api";
-import { SET_MEMBER_DIALOG } from "~/store/constants";
+import { SET_IS_MEMBER, SET_MEMBER_DIALOG } from "~/store/constants";
+import { MEMBER_COST_IN_DOLLARS } from "~/constants";
 
 const store = useStore();
 const { $flutterwave } = useNuxtApp();
@@ -43,7 +44,6 @@ const email = ref("");
 const { onClose } = defineProps<{ onClose: Function }>();
 
 const isDialogOpen = computed(() => store.state.memberDialogOpen);
-
 const payAndAddMember = async (event: any) => {
   event.preventDefault();
 
@@ -62,6 +62,7 @@ const payAndAddMember = async (event: any) => {
       },
     };
     const paymentResponse = await $flutterwave(paymentOptions);
+    store.dispatch(SET_IS_MEMBER, true);
     console.log("Payment successful:", paymentResponse);
   } catch (error) {
     console.error("Payment error:", error);
