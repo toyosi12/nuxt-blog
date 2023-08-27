@@ -12,15 +12,6 @@
       </section>
       <section class="article__content">
         <h3>{{ title }}</h3>
-        <p v-dompurify-html="excerpt"></p>
-        <div class="article__image-container">
-          <nuxt-img
-            class="article__image"
-            :src="imageUrl"
-            loading="lazy"
-            alt="TODO"
-          />
-        </div>
         <p v-dompurify-html="content"></p>
       </section>
     </article>
@@ -34,8 +25,7 @@
 import { ArticleDetailProp } from "interfaces/components";
 import { convertToRelativeDate } from "~/utils/index";
 
-const { date, author, title, imageUrl, content, excerpt } =
-  defineProps<ArticleDetailProp>();
+const { date, author, title, content } = defineProps<ArticleDetailProp>();
 </script>
 
 <style lang="scss" scoped>

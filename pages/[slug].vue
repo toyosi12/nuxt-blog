@@ -3,9 +3,7 @@
     :date="article.date"
     :content="article.content.rendered"
     :title="article.title.rendered"
-    :image-url="article.yoast_head_json.og_image[0].url"
     :author="article.yoast_head_json.author"
-    :excerpt="article.excerpt.rendered"
   />
 </template>
 

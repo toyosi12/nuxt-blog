@@ -5,12 +5,14 @@ import {
   SET_ARTICLE,
   SET_ARTICLES,
   SET_CURRENT_PAGE,
+  SET_MEMBER_DIALOG,
 } from "~/store/constants";
 
 interface ArticleStore {
   articles: Article[];
   article: Article;
   currentPage: number;
+  memberDialogOpen: boolean;
 }
 
 const perPage = 10;
@@ -20,6 +22,7 @@ export const articleStore = createStore<ArticleStore>({
     articles: [],
     article: {} as Article,
     currentPage: 1,
+    memberDialogOpen: false,
   }),
   mutations: {
     setArticles(state, articles) {
@@ -30,6 +33,9 @@ export const articleStore = createStore<ArticleStore>({
     },
     setCurrentPage(state, currentPage) {
       state.currentPage = currentPage;
+    },
+    setMemberDialog(state, isOpen) {
+      state.memberDialogOpen = isOpen;
     },
   },
   actions: {
@@ -81,9 +87,13 @@ export const articleStore = createStore<ArticleStore>({
       commit(SET_CURRENT_PAGE, this.state.currentPage + 1);
       await this.dispatch(FETCH_ARTICLES);
     },
+    setMemberDialog({ commit }, isOpen: boolean) {
+      commit(SET_MEMBER_DIALOG, isOpen);
+    },
   },
   getters: {
     getArticles: (state) => state.articles,
     getArticle: (state) => state.article,
+    getMemberDialog: (state) => state.memberDialogOpen,
   },
 });

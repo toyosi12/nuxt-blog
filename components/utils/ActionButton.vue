@@ -1,11 +1,13 @@
 <template>
-  <button :class="['btn', btnType]" @click="handleClick"><slot></slot></button>
+  <button :class="['btn', btnType]" :type="type" @click="handleClick">
+    <slot></slot>
+  </button>
 </template>
 
 <script lang="ts" setup>
 import { defineProps } from "vue";
 import { ButtonProp } from "../../interfaces/components";
-const { btnType, onClick } = defineProps<ButtonProp>();
+const { btnType, onClick, type } = defineProps<ButtonProp>();
 
 const handleClick = () => {
   if (onClick) {
@@ -29,5 +31,9 @@ const handleClick = () => {
   color: $white;
   background: $black;
   border: none;
+}
+
+.btn-block {
+  width: 100%;
 }
 </style>

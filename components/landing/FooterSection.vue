@@ -13,33 +13,23 @@
       >JOIN US</action-button
     >
   </footer>
+  <membership-dialog :on-close="onDialogClose" />
 </template>
 
 <script lang="ts" setup>
-const { $flutterwave } = useNuxtApp();
+import { useStore } from "vuex";
+import { SET_MEMBER_DIALOG } from "~/store/constants";
 
 const membershipCostInDollars = 25;
 
-const handleJoin = async () => {
-  try {
-    const paymentOptions: any = {
-      public_key: "FLWPUBK_TEST-ac1328a5926811d408cec83ba36b5202-X",
-      tx_ref: "fasdfasdf",
-      amount: 10,
-      currency: "USD",
-      payment_type: "card",
-      customer: {
-        email: "user@example.com",
-        phone_number: "user_phone_number",
-        name: "John Doe",
-      },
-    };
+const store = useStore();
 
-    const paymentResponse = await $flutterwave(paymentOptions);
-    console.log("Payment successful:", paymentResponse);
-  } catch (error) {
-    console.error("Payment error:", error);
-  }
+const onDialogClose = () => {
+  store.dispatch(SET_MEMBER_DIALOG, false);
+};
+
+const handleJoin = () => {
+  store.dispatch(SET_MEMBER_DIALOG, true);
 };
 </script>
 
