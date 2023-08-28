@@ -1,4 +1,6 @@
 import { createStore } from "vuex";
+import axios from "axios";
+import { initialArticle } from "./initials";
 import { Article } from "interfaces/api";
 import {
   FETCH_ARTICLES,
@@ -22,7 +24,7 @@ const perPage = 10;
 export const crunchStore = createStore<CrunchStore>({
   state: () => ({
     articles: [],
-    article: {} as Article,
+    article: initialArticle,
     currentPage: 1,
     memberDialogOpen: false,
     isMember: false,
@@ -52,7 +54,7 @@ export const crunchStore = createStore<CrunchStore>({
       try {
         const config = useRuntimeConfig();
         const baseUrl = config.public.apiBaseUrl;
-        const response = await useFetch<Article[]>(`${baseUrl}/posts`, {
+        const { data } = await axios.get<Article[]>(`${baseUrl}/posts`, {
           params: {
             per_page: limit || perPage,
             order_by: "date",
@@ -61,12 +63,11 @@ export const crunchStore = createStore<CrunchStore>({
           },
         });
 
-        const data = response.data;
-        if (data.value) {
+        if (data) {
           if (page === 1 || limit === 3) {
-            commit(SET_ARTICLES, data.value);
+            commit(SET_ARTICLES, data);
           } else {
-            commit(SET_ARTICLES, [...state.articles, ...data.value]);
+            commit(SET_ARTICLES, [...state.articles, ...data]);
           }
           commit(SET_CURRENT_PAGE, page);
         }
@@ -76,14 +77,13 @@ export const crunchStore = createStore<CrunchStore>({
     },
     async fetchArticle({ commit }, slug: string) {
       try {
-        const { data } = await useFetch<Article[]>(
-          `https://techcrunch.com/wp-json/wp/v2/posts`,
-          {
-            params: {
-              slug,
-            },
+        const config = useRuntimeConfig();
+        const baseUrl = config.public.apiBaseUrl;
+        const { data } = await useFetch<Article[]>(`${baseUrl}/posts`, {
+          params: {
+            slug,
           },
-        );
+        });
         if (data.value) {
           commit(SET_ARTICLE, data.value[0]);
         }

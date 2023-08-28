@@ -1,5 +1,5 @@
 <template>
-  <main id="main">
+  <main v-if="!isPageLoading" id="main">
     <hero-section :article="articles[0]" />
     <articles-section :articles="articles.slice(1)" />
     <load-more-btn
@@ -7,7 +7,9 @@
       :is-more-loading="isMoreLoading"
     />
     <footer-section />
+    <h1>My Page</h1>
   </main>
+  <p v-else>Loading...</p>
 </template>
 
 <script lang="ts" setup>
@@ -16,17 +18,34 @@ import { FETCH_ARTICLES } from "~/store/constants";
 import { Article } from "~/interfaces/api";
 const store = useStore();
 const articles = ref<Article[]>([]);
+const isPageLoading = ref<boolean>(true);
 const isMoreLoading = ref<boolean>(false);
 
-await store.dispatch(FETCH_ARTICLES, { page: 1 });
-articles.value = store.state.articles;
+const fetchArticles = async () => {
+  try {
+    isPageLoading.value = true;
+    await store.dispatch(FETCH_ARTICLES, { page: 1 });
+    articles.value = store.state.articles;
+  } catch (err) {
+  } finally {
+    isPageLoading.value = false;
+  }
+};
+
+onMounted(() => {
+  fetchArticles();
+});
 
 const loadMoreArticles = async () => {
   const currentPage = store.state.currentPage;
   isMoreLoading.value = true;
-  await store.dispatch(FETCH_ARTICLES, { page: currentPage + 1 });
-  articles.value = store.state.articles;
-  isMoreLoading.value = false;
+  try {
+    await store.dispatch(FETCH_ARTICLES, { page: currentPage + 1 });
+    articles.value = store.state.articles;
+  } catch {
+  } finally {
+    isMoreLoading.value = false;
+  }
 };
 
 useHead({
