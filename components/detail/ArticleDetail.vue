@@ -1,5 +1,8 @@
 <template>
   <section>
+    <Head>
+      <Title>{{ pageTitle }}</Title>
+    </Head>
     <article class="article-detail">
       <section class="article-detail__description">
         <div class="article-detail__writer">
@@ -12,14 +15,13 @@
       </section>
       <section class="article-detail__content">
         <h2 v-dompurify-html="title"></h2>
-        <div class="article-detail__placeholder-img-container">
-          <nuxt-img
-            class="card__image"
-            loading="lazy"
-            :src="img"
-            :alt="title"
-          />
-        </div>
+        <nuxt-img
+          v-if="img"
+          class="card__image"
+          loading="lazy"
+          :src="img"
+          :alt="title"
+        />
         <div v-dompurify-html="content"></div>
       </section>
     </article>
@@ -39,18 +41,26 @@ import { convertToRelativeDate } from "~/utils/index";
 
 const store = useStore();
 
-const { date, author, title, content, img } = defineProps<ArticleDetailProp>();
+const { date, author, title, content, img, pageTitle, slug } =
+  defineProps<ArticleDetailProp>();
 const articles = ref<Article[]>([]);
 
-await store.dispatch(FETCH_ARTICLES, { limit: 3, page: 1 });
-articles.value = store.state.articles;
+const fetchRecentArticles = async () => {
+  await store.dispatch(FETCH_ARTICLES, { limit: 4, page: 1 });
+  let _articles: Article[] = store.state.articles;
+  _articles = _articles.filter((_article) => _article.slug !== slug);
+  articles.value = _articles.slice(0, 3);
+};
+
+onMounted(() => {
+  fetchRecentArticles();
+});
 </script>
 
 <style lang="scss">
 .article-detail {
-  @include flex-box(column, flex-start, flex-start);
-  @include flex-gap(2rem);
   width: 80%;
+  max-width: 80%;
   margin: 5rem auto;
   &__description {
     @include flex-box(row, flex-start, center);
@@ -65,22 +75,24 @@ articles.value = store.state.articles;
     }
   }
   &__content {
-    @include flex-box(column, flex-start, flex-start);
     color: $black-10;
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      margin-bottom: 1.5rem;
-    }
+
     h2 {
       @include text-lg-bolder($black-10);
     }
     p {
       @include text-regular($black-10);
       margin-bottom: 1rem;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      margin: 0 0 1.5rem;
+    }
+
+    div {
+      width: 100% !important;
+      display: block;
     }
   }
   &__image-container {
@@ -95,10 +107,16 @@ articles.value = store.state.articles;
   &__date {
     @include text-small($black-20);
   }
-  &__placeholder-img-container {
-    width: 100%;
-    @include flex-box(row, center, center);
-    margin: 10px 0;
+}
+
+@media screen and (min-width: $breakpoint-sm) {
+  .article-detail {
+    &__content {
+      img {
+        width: 80%;
+        margin: 0 10% 1.5rem;
+      }
+    }
   }
 }
 </style>

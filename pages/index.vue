@@ -7,7 +7,6 @@
       :is-more-loading="isMoreLoading"
     />
     <footer-section />
-    <h1>My Page</h1>
   </main>
   <p v-else>Loading...</p>
 </template>

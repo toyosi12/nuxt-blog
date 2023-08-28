@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: ["~/assets/styles/global.scss"],
+  css: ["normalize.css/normalize.css", "~/assets/styles/global.scss"],
   vite: {
     css: {
       preprocessorOptions: {

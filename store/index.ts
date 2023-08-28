@@ -1,5 +1,4 @@
 import { createStore } from "vuex";
-import axios from "axios";
 import { initialArticle } from "./initials";
 import { Article } from "interfaces/api";
 import {
@@ -54,7 +53,9 @@ export const crunchStore = createStore<CrunchStore>({
       try {
         const config = useRuntimeConfig();
         const baseUrl = config.public.apiBaseUrl;
-        const { data } = await axios.get<Article[]>(`${baseUrl}/posts`, {
+        const { data } = await useHttp<Article[]>({
+          url: `${baseUrl}/posts`,
+          method: "get",
           params: {
             per_page: limit || perPage,
             order_by: "date",
@@ -79,16 +80,17 @@ export const crunchStore = createStore<CrunchStore>({
       try {
         const config = useRuntimeConfig();
         const baseUrl = config.public.apiBaseUrl;
-        const { data } = await useFetch<Article[]>(`${baseUrl}/posts`, {
+        const { data } = await useHttp<Article[]>({
+          url: `${baseUrl}/posts`,
           params: {
             slug,
           },
         });
-        if (data.value) {
-          commit(SET_ARTICLE, data.value[0]);
+        if (data[0]) {
+          commit(SET_ARTICLE, data[0]);
         }
       } catch (error) {
-        // TODO: log errors
+        console.log("error heree");
       }
     },
     async goToNextPage({ commit }) {

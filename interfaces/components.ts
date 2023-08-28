@@ -19,6 +19,8 @@ export interface ArticleDetailProp {
   title: string;
   content: string;
   img: string;
+  pageTitle: string;
+  slug: string;
 }
 
 export interface InputProp {
