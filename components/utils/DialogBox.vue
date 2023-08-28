@@ -2,9 +2,15 @@
   <transition name="dialog-fade">
     <div v-show="isDialogOpen" class="dialog">
       <transition name="dialog-fade-inner">
-        <div v-show="isDialogOpen" class="dialog__inner">
+        <div v-show="isDialogOpen" class="dialog__inner" aria-modal="true">
           <div class="dialog__close-btn-container">
-            <button class="dialog__close-btn" @click="closeDialog">X</button>
+            <button
+              aria-label="close"
+              class="dialog__close-btn"
+              @click="closeDialog"
+            >
+              X
+            </button>
           </div>
           <slot></slot>
         </div>

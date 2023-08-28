@@ -18,7 +18,11 @@
             input-label="Email"
           />
 
-          <action-button class="pay-button" type="submit" btn-type="btn-block"
+          <action-button
+            class="pay-button"
+            type="submit"
+            btn-type="btn-block"
+            aria-label="pay to join"
             >Pay and Join</action-button
           >
         </form>

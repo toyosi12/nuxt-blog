@@ -14,6 +14,8 @@ interface AppStore {
 }
 
 const perPage = 10;
+const fields =
+  "id, date, modified, slug, status, title, content, excerpt, yoast_head, yoast_head_json, primary_category";
 
 export const appStore = createStore<AppStore>({
   state: () => ({
@@ -44,6 +46,7 @@ export const appStore = createStore<AppStore>({
               order_by: "date",
               order: "desc",
               page,
+              _fields: fields,
             },
           },
         );
@@ -68,6 +71,7 @@ export const appStore = createStore<AppStore>({
           {
             params: {
               slug,
+              _fields: fields,
             },
           },
         );

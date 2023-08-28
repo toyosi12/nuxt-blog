@@ -6,7 +6,7 @@
           class="card__image"
           loading="lazy"
           :src="article.yoast_head_json.og_image[0].url"
-          alt="TODO"
+          :alt="article.title.rendered"
         />
       </div>
       <div class="card__content">
@@ -20,8 +20,11 @@
           </div>
         </div>
         <div class="card__content-middle">
-          <h4 v-if="isHero === true">{{ article.title.rendered }}</h4>
-          <h5 v-else>{{ article.title.rendered }}</h5>
+          <h4
+            v-if="isHero === true"
+            v-dompurify-html="article.title.rendered"
+          ></h4>
+          <h5 v-else v-dompurify-html="article.title.rendered"></h5>
           <p v-dompurify-html="article.excerpt.rendered"></p>
         </div>
         <div class="card__content-bottom">
@@ -130,6 +133,12 @@ const { isHero, article } = defineProps<CardProp>();
   }
   &:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &--hero {
+    .card__content-middle {
+      height: 13rem;
+    }
   }
 }
 

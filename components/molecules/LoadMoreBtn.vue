@@ -5,6 +5,7 @@
     btn-type="dark"
     :on-click="onClick"
     data-testid="load-more-btn"
+    aria-label="load more articles"
     >Load More</action-button
   >
 </template>

@@ -16,12 +16,7 @@ export interface Article {
     rendered: string;
   };
   yoast_head: string;
-  yoast_head_json: {
-    author: string;
-    og_image: {
-      url: string;
-    }[];
-  };
+  yoast_head_json: any;
   primary_category: {
     name: string;
   };

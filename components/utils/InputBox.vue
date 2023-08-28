@@ -35,6 +35,9 @@ const updateInput = (event: any) => {
   &__input {
     width: 100%;
     padding: 0.8rem;
+    &:focus {
+      outline: 2px solid $black-10;
+    }
   }
 }
 </style>

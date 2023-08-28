@@ -9,7 +9,11 @@
       >
       and everything is ready to go.
     </p>
-    <action-button v-if="!isMember" btn-type="btn-dark" :on-click="handleJoin"
+    <action-button
+      v-if="!isMember"
+      btn-type="btn-dark"
+      :on-click="handleJoin"
+      arial-label="join us"
       >JOIN US</action-button
     >
     <p v-else>Member</p>

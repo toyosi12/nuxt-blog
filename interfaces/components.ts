@@ -9,6 +9,7 @@ export interface ButtonProp {
   btnType?: string;
   onClick?: Function;
   type?: string;
+  arialLabel?: string;
 }
 
 export interface ArticleDetailProp {
@@ -16,6 +17,7 @@ export interface ArticleDetailProp {
   date: string;
   title: string;
   content: string;
+  img: string;
 }
 
 export interface InputProp {

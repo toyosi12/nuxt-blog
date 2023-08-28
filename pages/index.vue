@@ -18,16 +18,27 @@ const store = useStore();
 const articles = ref<Article[]>([]);
 const isMoreLoading = ref<boolean>(false);
 
-await store.dispatch(FETCH_ARTICLES, 1);
+await store.dispatch(FETCH_ARTICLES, { page: 1 });
 articles.value = store.state.articles;
 
 const loadMoreArticles = async () => {
   const currentPage = store.state.currentPage;
   isMoreLoading.value = true;
-  await store.dispatch(FETCH_ARTICLES, currentPage + 1);
+  await store.dispatch(FETCH_ARTICLES, { page: currentPage + 1 });
   articles.value = store.state.articles;
   isMoreLoading.value = false;
 };
+
+useHead({
+  title: "TechCrunch | Startup and Technology",
+  meta: [
+    {
+      name: "description",
+      content:
+        "TechCrunch | Reporting on the business of technology, startups, venture capital funding, and Silicon Valley",
+    },
+  ],
+});
 </script>
 
 <style lang="scss">
