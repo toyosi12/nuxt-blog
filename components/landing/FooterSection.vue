@@ -16,7 +16,7 @@
       arial-label="join us"
       >JOIN US</action-button
     >
-    <p v-else>Member</p>
+    <p v-else class="footer__member-badge">You are a member!</p>
   </footer>
   <membership-dialog :on-close="onDialogClose" />
 </template>
@@ -57,6 +57,12 @@ const handleJoin = () => {
     &--bold {
       font-weight: 700;
     }
+  }
+  &__member-badge {
+    background-color: $member-green;
+    padding: 1rem;
+    border-radius: 1.5rem;
+    @include text-regular($white);
   }
 }
 </style>

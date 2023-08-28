@@ -23,6 +23,7 @@
             type="submit"
             btn-type="btn-block"
             aria-label="pay to join"
+            :disabled="payBtnDisabled"
             >Pay and Join</action-button
           >
         </form>
@@ -48,14 +49,15 @@ const email = ref("");
 const { onClose } = defineProps<{ onClose: Function }>();
 
 const isDialogOpen = computed(() => store.state.memberDialogOpen);
-const payAndAddMember = async (event: any) => {
+const config = useRuntimeConfig();
+
+const payBtnDisabled = ref(false);
+const payAndAddMember = async (event: Event) => {
+  payBtnDisabled.value = true;
   event.preventDefault();
-
   try {
-    store.dispatch(SET_MEMBER_DIALOG, false);
-
     const paymentOptions: FlwPaymentOptions = {
-      public_key: "FLWPUBK_TEST-ac1328a5926811d408cec83ba36b5202-X",
+      public_key: config.public.flwPublicKey as string,
       tx_ref: Date.now().toString(),
       currency: Currency.USD,
       amount: 10,
@@ -70,6 +72,9 @@ const payAndAddMember = async (event: any) => {
     console.log("Payment successful:", paymentResponse);
   } catch (error) {
     console.error("Payment error:", error);
+  } finally {
+    store.dispatch(SET_MEMBER_DIALOG, false);
+    payBtnDisabled.value = false;
   }
 };
 </script>

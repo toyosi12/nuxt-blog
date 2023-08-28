@@ -3,6 +3,7 @@
     :class="['btn', btnType]"
     :type="type"
     :aria-label="arialLabel"
+    :disabled="disabled"
     @click="handleClick"
   >
     <slot></slot>
@@ -12,7 +13,8 @@
 <script lang="ts" setup>
 import { defineProps } from "vue";
 import { ButtonProp } from "../../interfaces/components";
-const { btnType, onClick, type, arialLabel } = defineProps<ButtonProp>();
+const { btnType, onClick, type, arialLabel, disabled } =
+  defineProps<ButtonProp>();
 
 const handleClick = () => {
   if (onClick) {
@@ -32,6 +34,10 @@ const handleClick = () => {
   }
   &:focus {
     outline: 2px solid $primary-blue;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 }
 

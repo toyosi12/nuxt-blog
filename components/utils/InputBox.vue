@@ -12,12 +12,12 @@
 </template>
 
 <script lang="ts" setup>
-import { InputProp } from "~/interfaces/components";
+import { Event, InputProp } from "~/interfaces/components";
 
 const { id, type, modelValue } = defineProps<InputProp>();
 const emits = defineEmits(["update:modelValue"]);
 
-const updateInput = (event: any) => {
+const updateInput = (event: Event) => {
   emits("update:modelValue", event.target.value);
 };
 </script>

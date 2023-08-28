@@ -56,4 +56,10 @@ export default defineNuxtConfig({
       type: "module",
     },
   },
+  runtimeConfig: {
+    public: {
+      apiBaseUrl: process.env.API_BASE_URL,
+      flwPublicKey: process.env.FLW_PUBLIC_KEY,
+    },
+  },
 });

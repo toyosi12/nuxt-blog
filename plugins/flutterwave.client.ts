@@ -17,7 +17,7 @@ export default defineNuxtPlugin(() => {
               } else {
                 reject(response);
               }
-              flw.close();
+              setTimeout(() => flw.close(), 10000);
             },
             onClose: () => {
               reject(new Error("Payment closed"));

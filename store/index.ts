@@ -49,19 +49,17 @@ export const crunchStore = createStore<CrunchStore>({
       { commit, state },
       { page, limit }: { page: number; limit?: number },
     ) {
-      console.log("limit: ", limit);
       try {
-        const response = await useFetch<Article[]>(
-          "https://techcrunch.com/wp-json/wp/v2/posts",
-          {
-            params: {
-              per_page: limit || perPage,
-              order_by: "date",
-              order: "desc",
-              page,
-            },
+        const config = useRuntimeConfig();
+        const baseUrl = config.public.apiBaseUrl;
+        const response = await useFetch<Article[]>(`${baseUrl}/posts`, {
+          params: {
+            per_page: limit || perPage,
+            order_by: "date",
+            order: "desc",
+            page,
           },
-        );
+        });
 
         const data = response.data;
         if (data.value) {

@@ -35,7 +35,7 @@
             </p>
           </div>
           <div class="card__content-full">
-            <p>Read Full</p>
+            <p>Read Full →</p>
           </div>
         </div>
       </div>
@@ -62,9 +62,10 @@ const { isHero, article } = defineProps<CardProp>();
   padding: 1rem;
   border-radius: 0.5rem;
   border: solid 0.1rem $gray-10;
+  cursor: pointer;
   transition:
     transform 0.2s,
-    box-shadow 0.2s;
+    opacity 0.2s;
   &__image-container {
     width: 100%;
     height: 20rem;
@@ -132,7 +133,7 @@ const { isHero, article } = defineProps<CardProp>();
     color: $black-10;
   }
   &:hover {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    opacity: 0.6;
   }
 
   &--hero {

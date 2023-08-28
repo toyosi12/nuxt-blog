@@ -10,6 +10,7 @@ export interface ButtonProp {
   onClick?: Function;
   type?: string;
   arialLabel?: string;
+  disabled?: boolean;
 }
 
 export interface ArticleDetailProp {
@@ -30,4 +31,11 @@ export interface InputProp {
 export interface DialogProp {
   isDialogOpen: boolean;
   onClose: Function;
+}
+
+export interface Event {
+  target: {
+    value: any;
+  };
+  preventDefault: () => {};
 }
