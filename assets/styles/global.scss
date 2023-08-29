@@ -1,6 +1,7 @@
 @import url("https://fonts.cdnfonts.com/css/sf-pro-display");
 
-html,button {
+html,
+button {
   font-size: 62.5%;
 }
 
@@ -15,7 +16,12 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
-h1, h2, h3, h4, h5, h6{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-bottom: 1rem;
 }
 
@@ -50,7 +56,6 @@ a {
     background-position: 200% center;
   }
 }
-
 
 /* Mobile Screens*/
 .container {

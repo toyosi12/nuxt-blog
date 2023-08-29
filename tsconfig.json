@@ -2,12 +2,7 @@
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "types": ["vitest/globals"],
+    "types": ["vitest/globals"]
   },
-  "exclude": [
-    "./cypress.config.ts",
-    "cypress",
-    "**/*.cy.tsx"
-  
-  ]
+  "exclude": ["./cypress.config.ts", "cypress", "**/*.cy.tsx"]
 }

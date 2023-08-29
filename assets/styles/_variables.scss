@@ -76,7 +76,7 @@ $spacing-md: 3rem;
   font-weight: 900;
 }
 
-@mixin text-clamp($lines: 4){
+@mixin text-clamp($lines: 4) {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
