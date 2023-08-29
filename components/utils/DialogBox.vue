@@ -70,23 +70,25 @@ const closeDialog = () => {
   &__inner {
     position: relative;
     max-width: 640px;
-    width: 80%;
+    width: 90%;
     box-shadow:
       0 0.4rem 0.4rem -0.1rem rgba(0, 0, 0, 0.1),
       0 0.2rem 0.3rem -0.1rem rgba(0, 0, 0, 0.06);
     background-color: $white;
-    padding: 4rem;
+    padding: 2rem;
   }
 
   &__close-btn-container {
     width: 100%;
+    text-align: right;
     @include flex-box(row, flex-end);
   }
   &__close-btn {
     border: none;
     background: none;
+    padding: 1rem 0 2rem 1rem;
     font-size: 1.8rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
   }
 }

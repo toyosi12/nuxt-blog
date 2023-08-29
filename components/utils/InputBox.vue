@@ -34,7 +34,7 @@ const updateInput = (event: Event) => {
   }
   &__input {
     width: 100%;
-    padding: 0.8rem;
+    padding: 1.3rem;
     font-size: 1.6rem;
     &:focus {
       outline: 0.1rem solid $black-10;
