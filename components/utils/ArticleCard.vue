@@ -117,7 +117,10 @@ const { isHero, article, isSkeleton } = defineProps<CardProp>();
     align-self: baseline;
   }
   &__content-category {
-    color: $black-30;
+    p {
+      color: $black-30;
+      font-weight: 700;
+    }
   }
   &__content-date {
     color: $black-20;

@@ -6,8 +6,8 @@
   </div>
 </template>
 
-<script setup>
-defineProps(["error"]);
+<script lang="ts" setup>
+const { error } = defineProps<{ error: Error }>();
 </script>
 
 <style lang="scss" scoped>

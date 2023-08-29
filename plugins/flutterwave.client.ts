@@ -1,3 +1,5 @@
+import { FlwPaymentOptions } from "interfaces/api";
+
 export default defineNuxtPlugin(() => {
   const script = document.createElement("script");
   script.src = "https://checkout.flutterwave.com/v3.js";
@@ -6,7 +8,7 @@ export default defineNuxtPlugin(() => {
 
   return {
     provide: {
-      flutterwave: (options: any) => {
+      flutterwave: (options: FlwPaymentOptions) => {
         return new Promise((resolve, reject) => {
           // @ts-ignore
           const flw = FlutterwaveCheckout({

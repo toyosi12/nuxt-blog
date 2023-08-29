@@ -34,6 +34,7 @@
 
 <script lang="ts" setup>
 import { useStore } from "vuex";
+import { useToast } from "vue-toastification";
 import { PaymentType } from "~/enums/payment-types";
 import { PaymentStatus } from "~/enums/payment-statuses";
 import { Currency } from "~/enums/currencies";
@@ -43,14 +44,13 @@ import { MEMBER_COST_IN_DOLLARS } from "~/constants";
 
 const store = useStore();
 const { $flutterwave } = useNuxtApp();
+const toast = useToast();
+const isDialogOpen = computed(() => store.state.memberDialogOpen);
+const config = useRuntimeConfig();
+const { onClose } = defineProps<{ onClose: Function }>();
 
 const fullName = ref("");
 const email = ref("");
-
-const { onClose } = defineProps<{ onClose: Function }>();
-
-const isDialogOpen = computed(() => store.state.memberDialogOpen);
-const config = useRuntimeConfig();
 
 const payBtnDisabled = ref(false);
 const payAndAddMember = async (event: Event) => {
@@ -61,7 +61,7 @@ const payAndAddMember = async (event: Event) => {
       public_key: config.public.flwPublicKey as string,
       tx_ref: Date.now().toString(),
       currency: Currency.USD,
-      amount: 10,
+      amount: MEMBER_COST_IN_DOLLARS,
       payment_type: PaymentType.CARD,
       customer: {
         email: email.value,
@@ -75,7 +75,7 @@ const payAndAddMember = async (event: Event) => {
       store.dispatch(SET_IS_MEMBER, true);
     }
   } catch (error) {
-    // console.error("Payment error:", error);
+    toast.error("could not process your payment");
   } finally {
     store.dispatch(SET_MEMBER_DIALOG, false);
     payBtnDisabled.value = false;

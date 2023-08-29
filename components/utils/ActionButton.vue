@@ -46,6 +46,7 @@ const handleClick = () => {
   color: $white;
   background: $black;
   border: none;
+  font-weight: 500;
 }
 
 .btn-block {

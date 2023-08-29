@@ -1,63 +1,39 @@
-# Nuxt 3 Minimal Starter
+# Nuxt-Blog
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+[![Nuxt.js](https://img.shields.io/badge/Nuxt.js-3.x-04C690?style=flat-square&logo=nuxt.js)](https://nuxtjs.org)
+[![Node.js](https://img.shields.io/badge/Node.js-16.x-339933?style=flat-square&logo=node.js)](https://nodejs.org/)
 
-## Setup
+A demo Nuxt3 application built using Typescript. Fetches TechCrunch's Wordpress API
 
-Make sure to install the dependencies:
+## Getting Started
 
-```bash
-# npm
+### Prerequisites
+
+- Node.js >= 16.x
+- Nuxt.js 3.x
+
+### Installation
+
+```sh
+git clone https://github.com/your-username/your-repo.git
+
+cd your-repo
+
 npm install
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
 ```
 
-## Production
+### Tests
 
-Build the application for production:
+# Run unit tests
 
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
+```sh
+npm run test
 ```
 
-Locally preview production build:
+# Run end-to-end tests
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
+```sh
+npm run test:e2e
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

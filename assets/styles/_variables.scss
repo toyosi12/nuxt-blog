@@ -1,8 +1,14 @@
+/**
+Breakpoints
+**/
 $breakpoint-sm: 768px;
 $breakpoint-md: 1024px;
 $breakpoint-lg: 1200px;
 $breakpoint-xl: 1500px;
 
+/**
+Colors
+**/
 $white: #ffffff;
 $red: #ff0000;
 $black: #000000;
@@ -17,10 +23,15 @@ $primary-blue: #1473e6;
 $member-green: #004505;
 $loader-border-color: rgba(0, 0, 0, 0.1);
 
-$spacing: 1.2rem;
-
+/**
+Spacing
+**/
+$spacing: 1.5rem;
 $spacing-md: 3rem;
 
+/**
+Mixins
+**/
 @mixin flex-box($direction: row, $justify: center, $align: center) {
   display: flex;
   flex-direction: $direction;

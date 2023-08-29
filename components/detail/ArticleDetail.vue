@@ -25,8 +25,8 @@
         <div v-dompurify-html="content"></div>
       </section>
     </article>
-    <aside>
-      <h4>More Articles</h4>
+    <aside class="more-articles">
+      <h4 class="more-articles__h4">More Articles</h4>
       <articles-section :articles="articles" />
     </aside>
   </section>
@@ -48,6 +48,8 @@ const articles = ref<Article[]>([]);
 const fetchRecentArticles = async () => {
   await store.dispatch(FETCH_ARTICLES, { limit: 4, page: 1 });
   let _articles: Article[] = store.state.articles;
+
+  // prevent the display of the current article as one of the related articles
   _articles = _articles.filter((_article) => _article.slug !== slug);
   articles.value = _articles.slice(0, 3);
 };
@@ -108,9 +110,16 @@ onMounted(() => {
   }
 }
 
+.more-articles {
+  &__h4 {
+    font-weight: 900;
+    font-size: 2.4rem;
+  }
+}
+
 @media screen and (min-width: $breakpoint-sm) {
   .article-detail {
-    width: 80%;
+    width: 70%;
     max-width: 80%;
     &__content {
       img {

@@ -15,20 +15,17 @@
 import { useStore } from "vuex";
 import { FETCH_ARTICLES } from "~/store/constants";
 import { Article } from "~/interfaces/api";
+
 const store = useStore();
 const articles = ref<Article[]>([]);
 const isPageLoading = ref<boolean>(true);
 const isMoreLoading = ref<boolean>(false);
 
 const fetchArticles = async () => {
-  try {
-    isPageLoading.value = true;
-    await store.dispatch(FETCH_ARTICLES, { page: 1 });
-    articles.value = store.state.articles;
-  } catch (err) {
-  } finally {
-    isPageLoading.value = false;
-  }
+  isPageLoading.value = true;
+  await store.dispatch(FETCH_ARTICLES, { page: store.state.currentPage || 1 });
+  articles.value = store.state.articles;
+  isPageLoading.value = false;
 };
 
 onMounted(() => {

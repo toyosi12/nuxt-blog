@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
+import { useToast } from "vue-toastification";
 import { initialArticle } from "./initials";
-import { Article } from "interfaces/api";
+import { Article } from "~/interfaces/api";
 import {
   FETCH_ARTICLES,
   SET_ARTICLE,
@@ -20,6 +21,8 @@ interface CrunchStore {
 }
 
 const perPage = 10;
+
+const toast = useToast();
 
 export const crunchStore = createStore<CrunchStore>({
   state: () => ({
@@ -58,6 +61,7 @@ export const crunchStore = createStore<CrunchStore>({
       try {
         const config = useRuntimeConfig();
         const baseUrl = config.public.apiBaseUrl;
+
         const { data } = await useHttp<Article[]>({
           url: `${baseUrl}/posts`,
           method: "get",
@@ -78,11 +82,12 @@ export const crunchStore = createStore<CrunchStore>({
           commit(SET_CURRENT_PAGE, page);
         }
       } catch (error) {
-        // TODO: log errors
+        toast.error("could not fetch articles at the moment");
       }
     },
     async fetchArticle({ commit }, slug: string) {
       try {
+        // memoize visited detail pages
         if (this.state.cachedArticles.has(slug)) {
           commit(SET_ARTICLE, this.state.cachedArticles.get(slug));
         } else {
@@ -102,7 +107,7 @@ export const crunchStore = createStore<CrunchStore>({
           }
         }
       } catch (error) {
-        // console.log("error heree");
+        toast.error("could not fetch article at the moment");
       }
     },
     async goToNextPage({ commit }) {
@@ -122,6 +127,7 @@ export const crunchStore = createStore<CrunchStore>({
     getArticle: (state) => state.article,
     getMemberDialog: (state) => state.memberDialogOpen,
     getIsMember: (state) => {
+      // persist visitors who have paid in session storage
       const storedState = sessionStorage.getItem("is_member");
       if (storedState === "true") {
         return true;
