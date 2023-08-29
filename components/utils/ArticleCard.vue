@@ -1,8 +1,15 @@
 <template>
   <NuxtLink :to="article.slug">
-    <div :class="['card', isHero === true ? 'card--hero' : '']">
+    <div
+      :class="[
+        'card',
+        isHero === true ? 'card--hero' : '',
+        isSkeleton === true ? 'card--skeleton' : '',
+      ]"
+    >
       <div class="card__image-container">
         <nuxt-img
+          v-if="!isSkeleton"
           class="card__image"
           loading="lazy"
           :src="article.yoast_head_json.og_image[0].url"
@@ -12,11 +19,11 @@
       <div class="card__content">
         <div class="card__content-top">
           <div class="card__content-category">
-            <p>{{ article.primary_category.name }}</p>
+            <p v-if="!isSkeleton">{{ article.primary_category.name }}</p>
           </div>
           <div class="card__content-separator"></div>
           <div class="card__content-date">
-            <p>{{ convertToRelativeDate(article.date) }}</p>
+            <p v-if="!isSkeleton">{{ convertToRelativeDate(article.date) }}</p>
           </div>
         </div>
         <div class="card__content-middle">
@@ -29,13 +36,13 @@
         </div>
         <div class="card__content-bottom">
           <div class="card__content-reading-time">
-            <p>
+            <p v-if="!isSkeleton">
               {{ calculateReadingTimeInMins(article.content.rendered) }} Min
               Read
             </p>
           </div>
           <div class="card__content-full">
-            <p>Read Full →</p>
+            <p v-if="!isSkeleton">Read Full →</p>
           </div>
         </div>
       </div>
@@ -50,7 +57,7 @@ import {
   convertToRelativeDate,
   calculateReadingTimeInMins,
 } from "~/utils/index";
-const { isHero, article } = defineProps<CardProp>();
+const { isHero, article, isSkeleton } = defineProps<CardProp>();
 </script>
 
 <style lang="scss" scoped>
@@ -139,6 +146,29 @@ const { isHero, article } = defineProps<CardProp>();
   &--hero {
     .card__content-middle {
       height: 13rem;
+    }
+  }
+
+  &--skeleton {
+    border: none;
+    .card__image-container,
+    .card__content-category,
+    .card__content-middle,
+    .card__content-date,
+    .card__content-top,
+    .card__content-bottom,
+    .card__content-full {
+      width: 100%;
+      background-color: $gray-10;
+      cursor: auto;
+      background: linear-gradient(
+        90deg,
+        $gray-20 25%,
+        $gray-30 50%,
+        $gray-20 75%
+      );
+      background-size: 200% 100%;
+      animation: skeletonWave 4s infinite;
     }
   }
 }

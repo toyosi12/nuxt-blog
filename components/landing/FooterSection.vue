@@ -28,7 +28,7 @@ import { MEMBER_COST_IN_DOLLARS } from "~/constants";
 
 const store = useStore();
 
-const isMember = computed(() => store.state.isMember);
+const isMember = computed(() => store.getters.getIsMember);
 
 const onDialogClose = () => {
   store.dispatch(SET_MEMBER_DIALOG, false);

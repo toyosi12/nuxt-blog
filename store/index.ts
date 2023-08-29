@@ -16,6 +16,7 @@ interface CrunchStore {
   currentPage: number;
   memberDialogOpen: boolean;
   isMember: boolean;
+  cachedArticles: Map<string, Article>;
 }
 
 const perPage = 10;
@@ -27,6 +28,7 @@ export const crunchStore = createStore<CrunchStore>({
     currentPage: 1,
     memberDialogOpen: false,
     isMember: false,
+    cachedArticles: new Map(),
   }),
   mutations: {
     setArticles(state, articles) {
@@ -43,6 +45,9 @@ export const crunchStore = createStore<CrunchStore>({
     },
     setIsMember(state, isMember) {
       state.isMember = isMember;
+    },
+    setCachedArticles(state, cache) {
+      state.cachedArticles = cache;
     },
   },
   actions: {
@@ -78,16 +83,23 @@ export const crunchStore = createStore<CrunchStore>({
     },
     async fetchArticle({ commit }, slug: string) {
       try {
-        const config = useRuntimeConfig();
-        const baseUrl = config.public.apiBaseUrl;
-        const { data } = await useHttp<Article[]>({
-          url: `${baseUrl}/posts`,
-          params: {
-            slug,
-          },
-        });
-        if (data[0]) {
-          commit(SET_ARTICLE, data[0]);
+        if (this.state.cachedArticles.has(slug)) {
+          commit(SET_ARTICLE, this.state.cachedArticles.get(slug));
+        } else {
+          const config = useRuntimeConfig();
+          const baseUrl = config.public.apiBaseUrl;
+          const { data } = await useHttp<Article[]>({
+            url: `${baseUrl}/posts`,
+            params: {
+              slug,
+            },
+          });
+          if (data[0]) {
+            commit(SET_ARTICLE, data[0]);
+            this.state.cachedArticles.set(slug, data[0]);
+          } else {
+            showError({ statusCode: 404, statusMessage: "Not Found" });
+          }
         }
       } catch (error) {
         console.log("error heree");
@@ -102,12 +114,19 @@ export const crunchStore = createStore<CrunchStore>({
     },
     setIsMember({ commit }, isMember) {
       commit(SET_IS_MEMBER, isMember);
+      sessionStorage.setItem("is_member", "true");
     },
   },
   getters: {
     getArticles: (state) => state.articles,
     getArticle: (state) => state.article,
     getMemberDialog: (state) => state.memberDialogOpen,
-    getIsMember: (state) => state.isMember,
+    getIsMember: (state) => {
+      const storedState = sessionStorage.getItem("is_member");
+      if (storedState === "true") {
+        return true;
+      }
+      return state.isMember;
+    },
   },
 });

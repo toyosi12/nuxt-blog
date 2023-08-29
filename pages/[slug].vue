@@ -9,7 +9,7 @@
     :page-title="article.yoast_head_json.title"
     :slug="slug"
   />
-  <p v-else>loading...</p>
+  <detail-skeleton v-else />
 </template>
 
 <script lang="ts" setup>

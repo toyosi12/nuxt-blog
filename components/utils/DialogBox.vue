@@ -85,7 +85,7 @@ const closeDialog = () => {
   &__close-btn {
     border: none;
     background: none;
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 500;
     cursor: pointer;
   }

@@ -2,6 +2,7 @@ import { Article } from "./api";
 
 export interface CardProp {
   article: Article;
+  isSkeleton: boolean;
   isHero?: boolean;
 }
 

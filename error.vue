@@ -2,6 +2,7 @@
   <div class="container">
     <h1>{{ error.statusCode }}</h1>
     <p>{{ error.message }}</p>
+    <NuxtLink to="/">Home Page</NuxtLink>
   </div>
 </template>
 
@@ -9,7 +10,7 @@
 defineProps(["error"]);
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .container {
   width: 100vw;
   height: 100vh;
@@ -24,5 +25,11 @@ h1 {
 
 p {
   font-size: 2rem;
+}
+
+a {
+  font-size: 1.5em;
+  margin-top: 2em;
+  color: $primary-blue;
 }
 </style>

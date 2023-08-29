@@ -8,7 +8,7 @@
     />
     <footer-section />
   </main>
-  <p v-else>Loading...</p>
+  <landing-skeleton v-else />
 </template>
 
 <script lang="ts" setup>

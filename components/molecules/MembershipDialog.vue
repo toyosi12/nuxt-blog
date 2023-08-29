@@ -2,7 +2,7 @@
   <div class="home">
     <dialog-box :is-dialog-open="isDialogOpen" :on-close="onClose">
       <div class="modal-content">
-        <h1>Pay ${{ MEMBER_COST_IN_DOLLARS }} to become a member</h1>
+        <h2>Pay ${{ MEMBER_COST_IN_DOLLARS }} to become a member</h2>
         <form @submit="payAndAddMember">
           <input-box
             id="fullName"
@@ -67,9 +67,12 @@ const payAndAddMember = async (event: Event) => {
         name: fullName.value,
       },
     };
-    const paymentResponse = await $flutterwave(paymentOptions);
-    store.dispatch(SET_IS_MEMBER, true);
-    console.log("Payment successful:", paymentResponse);
+    const paymentResponse = (await $flutterwave(paymentOptions)) as {
+      status: string;
+    };
+    if (paymentResponse.status === "successfull") {
+      store.dispatch(SET_IS_MEMBER, true);
+    }
   } catch (error) {
     console.error("Payment error:", error);
   } finally {

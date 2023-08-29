@@ -1,13 +1,16 @@
 <template>
   <article class="article">
-    <article-card :article="article" />
+    <article-card :is-skeleton="isSkeleton" :article="article" />
   </article>
 </template>
 
 <script lang="ts" setup>
 import { Article } from "interfaces/api";
 
-const { article } = defineProps<{ article: Article }>();
+const { article, isSkeleton } = defineProps<{
+  article: Article;
+  isSkeleton: boolean;
+}>();
 </script>
 
 <style lang="scss" scoped>

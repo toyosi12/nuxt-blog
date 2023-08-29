@@ -1,6 +1,6 @@
 <template>
   <section class="hero">
-    <article-card :is-hero="true" :article="article" />
+    <article-card :is-hero="true" :article="article" :is-skeleton="false" />
   </section>
 </template>
 
