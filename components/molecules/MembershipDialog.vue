@@ -35,6 +35,7 @@
 <script lang="ts" setup>
 import { useStore } from "vuex";
 import { PaymentType } from "~/enums/payment-types";
+import { PaymentStatus } from "~/enums/payment-statuses";
 import { Currency } from "~/enums/currencies";
 import { FlwPaymentOptions } from "~/interfaces/api";
 import { SET_IS_MEMBER, SET_MEMBER_DIALOG } from "~/store/constants";
@@ -70,11 +71,11 @@ const payAndAddMember = async (event: Event) => {
     const paymentResponse = (await $flutterwave(paymentOptions)) as {
       status: string;
     };
-    if (paymentResponse.status === "successfull") {
+    if (paymentResponse.status === PaymentStatus.SUCCESSFUL) {
       store.dispatch(SET_IS_MEMBER, true);
     }
   } catch (error) {
-    console.error("Payment error:", error);
+    // console.error("Payment error:", error);
   } finally {
     store.dispatch(SET_MEMBER_DIALOG, false);
     payBtnDisabled.value = false;
@@ -86,6 +87,7 @@ const payAndAddMember = async (event: Event) => {
 .pay-button {
   background-color: $black-10;
   color: $white;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 1.5rem;
 }
 </style>

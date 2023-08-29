@@ -10,6 +10,7 @@ button {
   padding: 0;
   box-sizing: border-box;
   font-family: "SF Pro Display", sans-serif;
+  font-display: swap;
 }
 body {
   background-color: $white;
@@ -60,7 +61,7 @@ a {
 /* Mobile Screens*/
 .container {
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 3rem;
   padding: 1rem;
 }
 

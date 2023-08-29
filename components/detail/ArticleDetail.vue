@@ -59,7 +59,8 @@ onMounted(() => {
 
 <style lang="scss">
 .article-detail {
-  margin: 5rem auto;
+  width: calc(100% - 2.4rem);
+  margin: $spacing auto 5rem;
   &__description {
     @include flex-box(row, flex-start, center);
     @include flex-gap(0.5rem);

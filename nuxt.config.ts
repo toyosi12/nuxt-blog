@@ -27,4 +27,11 @@ export default defineNuxtConfig({
       flwPublicKey: process.env.FLW_PUBLIC_KEY,
     },
   },
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: "en",
+      },
+    },
+  },
 });

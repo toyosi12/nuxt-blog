@@ -102,7 +102,7 @@ export const crunchStore = createStore<CrunchStore>({
           }
         }
       } catch (error) {
-        console.log("error heree");
+        // console.log("error heree");
       }
     },
     async goToNextPage({ commit }) {

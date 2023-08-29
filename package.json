@@ -13,7 +13,8 @@
     "lint:fix": "prettier --write --list-different . && npm run lint:js --fix",
     "test": "vitest",
     "test:e2e": "npx cypress open",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "start": "nuxt build && nuxt preview"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",

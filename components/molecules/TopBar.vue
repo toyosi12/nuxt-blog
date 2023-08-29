@@ -2,7 +2,7 @@
   <header class="hdr">
     <nav class="hdr__nav">
       <div class="hdr__logo-container">
-        <NuxtLink to="/">
+        <NuxtLink to="/" aria-label="Home Page">
           <icon-logo id="logo" />
         </NuxtLink>
       </div>
