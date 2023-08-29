@@ -59,8 +59,6 @@ onMounted(() => {
 
 <style lang="scss">
 .article-detail {
-  width: 80%;
-  max-width: 80%;
   margin: 5rem auto;
   &__description {
     @include flex-box(row, flex-start, center);
@@ -111,6 +109,8 @@ onMounted(() => {
 
 @media screen and (min-width: $breakpoint-sm) {
   .article-detail {
+    width: 80%;
+    max-width: 80%;
     &__content {
       img {
         width: 80%;
