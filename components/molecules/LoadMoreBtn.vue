@@ -2,6 +2,7 @@
   <process-loader v-if="isMoreLoading" data-testid="process-loader" />
   <action-button
     v-else
+    class="load-more-btn"
     btn-type="dark"
     :on-click="onClick"
     data-testid="load-more-btn"
@@ -17,3 +18,9 @@ const { isMoreLoading, onClick } = defineProps<
   ButtonProp & { isMoreLoading: boolean }
 >();
 </script>
+
+<style scoped>
+.load-more-btn {
+  font-size: 1.2rem;
+}
+</style>
