@@ -6,6 +6,7 @@
       class="form-group__input"
       :type="type"
       :value="modelValue"
+      required
       @input="updateInput"
     />
   </div>
