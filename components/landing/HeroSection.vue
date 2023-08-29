@@ -10,4 +10,8 @@ import { Article } from "interfaces/api";
 const { article } = defineProps<{ article: Article }>();
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.hero {
+  width: 100%;
+}
+</style>
