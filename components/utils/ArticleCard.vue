@@ -19,7 +19,10 @@
       <div class="card__content">
         <div class="card__content-top">
           <div class="card__content-category">
-            <p v-if="!isSkeleton">{{ article.primary_category.name }}</p>
+            <p
+              v-if="!isSkeleton"
+              v-dompurify-html="article.primary_category.name"
+            ></p>
           </div>
           <div class="card__content-separator"></div>
           <div class="card__content-date">
