@@ -36,7 +36,7 @@
 import { useStore } from "vuex";
 import { Article } from "interfaces/api";
 import { ArticleDetailProp } from "~/interfaces/components";
-import { FETCH_ARTICLES } from "~/store/constants";
+import { FETCH_RECENT_ARTICLES } from "~/store/constants";
 import { convertToRelativeDate } from "~/utils/index";
 
 const store = useStore();
@@ -46,8 +46,8 @@ const { date, author, title, content, img, pageTitle, slug } =
 const articles = ref<Article[]>([]);
 
 const fetchRecentArticles = async () => {
-  await store.dispatch(FETCH_ARTICLES, { limit: 4, page: 1 });
-  let _articles: Article[] = store.state.articles;
+  await store.dispatch(FETCH_RECENT_ARTICLES, { page: 1 });
+  let _articles: Article[] = store.state.recentArticles;
 
   // prevent the display of the current article as one of the related articles
   _articles = _articles.filter((_article) => _article.slug !== slug);
