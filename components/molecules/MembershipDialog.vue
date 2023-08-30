@@ -8,7 +8,6 @@
             id="fullName"
             v-model="fullName"
             type="text"
-            pattern="[A-Za-z]"
             input-label="Full Name"
           />
 
