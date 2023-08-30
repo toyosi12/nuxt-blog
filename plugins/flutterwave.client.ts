@@ -1,4 +1,5 @@
-import { FlwPaymentOptions } from "interfaces/api";
+import { PaymentStatus } from "~/enums/payment-statuses";
+import { FlwPaymentOptions, FlwPaymentResponse } from "~/interfaces/api";
 
 export default defineNuxtPlugin(() => {
   const script = document.createElement("script");
@@ -13,16 +14,13 @@ export default defineNuxtPlugin(() => {
           // @ts-ignore
           const flw = FlutterwaveCheckout({
             ...options,
-            callback: (response: any) => {
-              if (response.status === "successful") {
+            callback: (response: FlwPaymentResponse) => {
+              if (response.status === PaymentStatus.SUCCESSFUL) {
                 resolve(response);
               } else {
                 reject(response);
               }
               setTimeout(() => flw.close(), 10000);
-            },
-            onClose: () => {
-              reject(new Error("Payment closed"));
             },
           });
         });

@@ -19,8 +19,9 @@ const { isMoreLoading, onClick } = defineProps<
 >();
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .load-more-btn {
   font-size: 1.2rem;
+  color: $black;
 }
 </style>

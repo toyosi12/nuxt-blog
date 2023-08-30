@@ -29,6 +29,7 @@ export interface InputProp {
   inputLabel: string;
   modelValue: string;
   type: string;
+  pattern?: string;
 }
 
 export interface DialogProp {
