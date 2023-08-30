@@ -1,4 +1,5 @@
 import { Currency } from "enums/currencies";
+import { PaymentStatus } from "enums/payment-statuses";
 
 export interface Article {
   id: number;
@@ -33,6 +34,21 @@ export interface FlwPaymentOptions {
     name: string;
     phone_number?: string;
   };
+  onclose?: (incomplete?: boolean) => void;
+}
+
+export interface FlwPaymentResponse {
+  amount: string;
+  currency: string;
+  customer: {
+    name: string;
+    email: string;
+    phhone_number: string;
+  };
+  flw_ref: string;
+  status: PaymentStatus;
+  tx_ref: string;
+  transactionId: number;
 }
 
 export interface Member {

@@ -8,6 +8,7 @@
             id="fullName"
             v-model="fullName"
             type="text"
+            pattern="[A-Za-z]"
             input-label="Full Name"
           />
 
@@ -38,7 +39,7 @@ import { useToast } from "vue-toastification";
 import { PaymentType } from "~/enums/payment-types";
 import { PaymentStatus } from "~/enums/payment-statuses";
 import { Currency } from "~/enums/currencies";
-import { FlwPaymentOptions } from "~/interfaces/api";
+import { FlwPaymentOptions, FlwPaymentResponse } from "~/interfaces/api";
 import { SET_IS_MEMBER, SET_MEMBER_DIALOG } from "~/store/constants";
 import { MEMBER_COST_IN_DOLLARS } from "~/constants";
 
@@ -67,10 +68,13 @@ const payAndAddMember = async (event: Event) => {
         email: email.value,
         name: fullName.value,
       },
+      onclose: () => {
+        store.dispatch(SET_MEMBER_DIALOG, false);
+      },
     };
-    const paymentResponse = (await $flutterwave(paymentOptions)) as {
-      status: string;
-    };
+    const paymentResponse = (await $flutterwave(
+      paymentOptions,
+    )) as FlwPaymentResponse;
     if (paymentResponse.status === PaymentStatus.SUCCESSFUL) {
       store.dispatch(SET_IS_MEMBER, true);
     }

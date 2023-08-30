@@ -81,8 +81,8 @@ export const crunchStore = createStore<CrunchStore>({
           }
           commit(SET_CURRENT_PAGE, page);
         }
-      } catch (error) {
-        toast.error("could not fetch articles at the moment");
+      } catch (error: any) {
+        toast.error(error?.message || "could not fetch data from api");
       }
     },
     async fetchArticle({ commit }, slug: string) {
@@ -106,8 +106,8 @@ export const crunchStore = createStore<CrunchStore>({
             showError({ statusCode: 404, statusMessage: "Not Found" });
           }
         }
-      } catch (error) {
-        toast.error("could not fetch article at the moment");
+      } catch (error: any) {
+        toast.error(error?.message || "could not fetch data from api");
       }
     },
     async goToNextPage({ commit }) {
