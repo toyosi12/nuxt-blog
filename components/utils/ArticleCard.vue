@@ -9,10 +9,10 @@
     >
       <div class="card__image-container">
         <nuxt-img
-          v-if="!isSkeleton"
+          v-if="!isSkeleton && article?.yoast_head_json.og_image[0]?.url"
           class="card__image"
           loading="lazy"
-          :src="article.yoast_head_json.og_image[0].url"
+          :src="optimizeImage(article.yoast_head_json.og_image[0].url)"
           :alt="article.title.rendered"
         />
       </div>
@@ -58,6 +58,11 @@ import {
   calculateReadingTimeInMins,
 } from "~/utils/index";
 const { isHero, article, isSkeleton } = defineProps<CardProp>();
+
+const optimizeImage = (img: string) => {
+  const [imgUrl] = img.split("?");
+  return `${imgUrl}?w=600`;
+};
 </script>
 
 <style lang="scss" scoped>

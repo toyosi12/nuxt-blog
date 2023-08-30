@@ -6,11 +6,11 @@
     <article class="article-detail">
       <section class="article-detail__description">
         <div class="article-detail__writer">
-          <p>By {{ author }}</p>
+          <p v-if="author">By {{ author }}</p>
         </div>
         <div class="article-detail__description-separator"></div>
         <div class="article-detail__date">
-          <p>{{ convertToRelativeDate(date) }}</p>
+          <p v-if="date">{{ convertToRelativeDate(date) }}</p>
         </div>
       </section>
       <section class="article-detail__content">
