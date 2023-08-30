@@ -38,12 +38,11 @@ import { useToast } from "vue-toastification";
 import { PaymentType } from "~/enums/payment-types";
 import { PaymentStatus } from "~/enums/payment-statuses";
 import { Currency } from "~/enums/currencies";
-import { FlwPaymentOptions, FlwPaymentResponse } from "~/interfaces/api";
+import { FlwPaymentOptions } from "~/interfaces/api";
 import { SET_IS_MEMBER, SET_MEMBER_DIALOG } from "~/store/constants";
 import { MEMBER_COST_IN_DOLLARS } from "~/constants";
 
 const store = useStore();
-const { $flutterwave } = useNuxtApp();
 const toast = useToast();
 const isDialogOpen = computed(() => store.state.memberDialogOpen);
 const config = useRuntimeConfig();
@@ -71,9 +70,9 @@ const payAndAddMember = async (event: Event) => {
         store.dispatch(SET_MEMBER_DIALOG, false);
       },
     };
-    const paymentResponse = (await $flutterwave(
-      paymentOptions,
-    )) as FlwPaymentResponse;
+
+    await loadFlw();
+    const paymentResponse = await useFlw(paymentOptions);
     if (paymentResponse.status === PaymentStatus.SUCCESSFUL) {
       store.dispatch(SET_IS_MEMBER, true);
     }
