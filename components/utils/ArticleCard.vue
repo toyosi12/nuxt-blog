@@ -61,7 +61,7 @@ const { isHero, article, isSkeleton } = defineProps<CardProp>();
 
 const optimizeImage = (img: string) => {
   const [imgUrl] = img.split("?");
-  return `${imgUrl}?w=320`;
+  return `${imgUrl}?w=600`;
 };
 </script>
 
