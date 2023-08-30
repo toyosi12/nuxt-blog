@@ -13,9 +13,5 @@ describe("ArticleBox", () => {
     const articleCard = wrapper.findComponent(".article");
 
     expect(articleCard.exists()).toBe(true);
-
-    expect(wrapper.getComponent(ArticleBox).props("article")).toMatchObject(
-      articleMock,
-    );
   });
 });

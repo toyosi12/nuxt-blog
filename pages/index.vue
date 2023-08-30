@@ -23,8 +23,14 @@ const isMoreLoading = ref<boolean>(false);
 
 const fetchArticles = async () => {
   isPageLoading.value = true;
-  await store.dispatch(FETCH_ARTICLES, { page: store.state.currentPage || 1 });
-  articles.value = store.state.articles;
+  if (store.state.articles?.length > 0) {
+    articles.value = store.state.articles;
+  } else {
+    await store.dispatch(FETCH_ARTICLES, {
+      page: store.state.currentPage || 1,
+    });
+    articles.value = store.state.articles;
+  }
   isPageLoading.value = false;
 };
 

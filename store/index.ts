@@ -3,12 +3,17 @@ import { useToast } from "vue-toastification";
 import { initialArticle } from "./initials";
 import { Article } from "~/interfaces/api";
 import {
+  FETCH_ARTICLE,
   FETCH_ARTICLES,
+  FETCH_RECENT_ARTICLES,
+  GO_TO_NEXT_PAGE,
   SET_ARTICLE,
   SET_ARTICLES,
+  SET_CACHED_ARTICLES,
   SET_CURRENT_PAGE,
   SET_IS_MEMBER,
   SET_MEMBER_DIALOG,
+  SET_RECENT_ARTICLES,
 } from "~/store/constants";
 
 interface CrunchStore {
@@ -18,6 +23,7 @@ interface CrunchStore {
   memberDialogOpen: boolean;
   isMember: boolean;
   cachedArticles: Map<string, Article>;
+  recentArticles: Article[];
 }
 
 const perPage = 10;
@@ -32,29 +38,33 @@ export const crunchStore = createStore<CrunchStore>({
     memberDialogOpen: false,
     isMember: false,
     cachedArticles: new Map(),
+    recentArticles: [],
   }),
   mutations: {
-    setArticles(state, articles) {
+    [SET_ARTICLES](state, articles) {
       state.articles = articles;
     },
-    setArticle(state, article) {
+    [SET_ARTICLE](state, article) {
       state.article = article;
     },
-    setCurrentPage(state, currentPage) {
+    [SET_CURRENT_PAGE](state, currentPage) {
       state.currentPage = currentPage;
     },
-    setMemberDialog(state, isOpen) {
+    [SET_MEMBER_DIALOG](state, isOpen) {
       state.memberDialogOpen = isOpen;
     },
-    setIsMember(state, isMember) {
+    [SET_IS_MEMBER](state, isMember) {
       state.isMember = isMember;
     },
-    setCachedArticles(state, cache) {
+    [SET_CACHED_ARTICLES](state, cache) {
       state.cachedArticles = cache;
+    },
+    [SET_RECENT_ARTICLES](state, recentArticles) {
+      state.recentArticles = recentArticles;
     },
   },
   actions: {
-    async fetchArticles(
+    async [FETCH_ARTICLES](
       { commit, state },
       { page, limit }: { page: number; limit?: number },
     ) {
@@ -74,7 +84,7 @@ export const crunchStore = createStore<CrunchStore>({
         });
 
         if (data) {
-          if (page === 1 || limit === 3) {
+          if (page === 1) {
             commit(SET_ARTICLES, data);
           } else {
             commit(SET_ARTICLES, [...state.articles, ...data]);
@@ -85,7 +95,8 @@ export const crunchStore = createStore<CrunchStore>({
         toast.error(error?.message || "could not fetch data from api");
       }
     },
-    async fetchArticle({ commit }, slug: string) {
+
+    async [FETCH_ARTICLE]({ commit }, slug: string) {
       try {
         // memoize visited detail pages
         if (this.state.cachedArticles.has(slug)) {
@@ -110,16 +121,43 @@ export const crunchStore = createStore<CrunchStore>({
         toast.error(error?.message || "could not fetch data from api");
       }
     },
-    async goToNextPage({ commit }) {
+
+    async [GO_TO_NEXT_PAGE]({ commit }) {
       commit(SET_CURRENT_PAGE, this.state.currentPage + 1);
       await this.dispatch(FETCH_ARTICLES);
     },
-    setMemberDialog({ commit }, isOpen: boolean) {
+
+    [SET_MEMBER_DIALOG]({ commit }, isOpen: boolean) {
       commit(SET_MEMBER_DIALOG, isOpen);
     },
-    setIsMember({ commit }, isMember) {
+
+    [SET_IS_MEMBER]({ commit }, isMember) {
       commit(SET_IS_MEMBER, isMember);
       sessionStorage.setItem("is_member", "true");
+    },
+
+    async [FETCH_RECENT_ARTICLES]({ commit }, { page }: { page: number }) {
+      try {
+        const config = useRuntimeConfig();
+        const baseUrl = config.public.apiBaseUrl;
+
+        const { data } = await useHttp<Article[]>({
+          url: `${baseUrl}/posts`,
+          method: "get",
+          params: {
+            per_page: 4,
+            order_by: "date",
+            order: "desc",
+            page,
+          },
+        });
+
+        if (data) {
+          commit(SET_RECENT_ARTICLES, data);
+        }
+      } catch (error: any) {
+        toast.error(error?.message || "could not fetch data from api");
+      }
     },
   },
   getters: {

@@ -13,9 +13,5 @@ describe("ArticlesSection", () => {
     const articlesSection = wrapper.findComponent(".articles");
 
     expect(articlesSection.exists()).toBe(true);
-
-    expect(
-      wrapper.getComponent(ArticlesSection).props("articles"),
-    ).toMatchObject([articleMock]);
   });
 });

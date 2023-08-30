@@ -15,3 +15,7 @@ export const SET_MEMBER_DIALOG = "setMemberDialog";
 export const SET_IS_MEMBER = "setIsMember";
 
 export const SET_CACHED_ARTICLES = "setCachedArticles";
+
+export const SET_RECENT_ARTICLES = "setRecentArticles";
+
+export const FETCH_RECENT_ARTICLES = "getRecentArticles";
